@@ -1,0 +1,123 @@
+DAT110 – Project 1 (RPC IoT System)
+=================================
+
+Goal:
+Build a small IoT system using TCP sockets, a custom Messaging layer,
+a lightweight RPC middleware, and a Controller/Sensor/Display application.
+
+Architecture:
+TCP → Messaging Layer → RPC Layer → IoT Application
+
+--------------------------------------------------
+STEP 0 – Setup
+--------------------------------------------------
+[x] Create GitHub repo from template
+[x] Add all group members as collaborators
+[x] Clone repo locally
+[x] Import Maven project into IDE
+[x] Run mvn test (expect failures)
+
+--------------------------------------------------
+STEP 1 – Messaging Layer (Task 1)
+Package: no.hvl.dat110.messaging
+
+Implement TODOs in:
+
+[x] Message.java
+    - Constructor validates data != null
+    - Max payload = 127 bytes
+
+[x] MessageUtils.java
+    - encapsulate(byte[])
+    - decapsulate(byte[])
+
+[x] Connection.java
+    - connect socket streams
+    - send(Message)
+    - receive()
+
+[x] MessagingClient.java
+    - create socket
+    - connect()
+    - send()
+    - receive()
+
+[x] MessagingServer.java
+    - accept connection
+    - receive()
+    - send()
+
+Tests:
+[ ] TestMessage
+[ ] TestMessaging
+
+Goal:
+[ ] mvn test passes messaging tests
+
+--------------------------------------------------
+STEP 2 – RPC Layer (Task 2)
+Package: no.hvl.dat110.rpc
+
+Implement TODOs in:
+
+[ ] RPCUtils.java
+    - marshal/unmarshal int
+    - marshal/unmarshal String
+    - RPC encapsulation helpers
+
+[ ] RPCClient.java
+    - call()
+
+[ ] RPCServer.java
+    - register()
+    - receiveAndDispatch()
+
+Tests:
+[ ] TestRPCUtils
+[ ] TestRPC
+
+Goal:
+[ ] mvn test passes RPC tests
+
+--------------------------------------------------
+STEP 3 – IoT Application (Task 3)
+
+Controller:
+Package: no.dat110.system.controller
+
+[ ] DisplayStub.java
+[ ] Controller.java
+
+Display:
+Package: no.hvl.dat110.system.display
+
+[ ] DisplayImpl.java
+[ ] DisplayDevice.java
+
+Sensor:
+(already implemented – use as reference)
+
+System test:
+[ ] TestSystem.java
+
+Expected console output:
+
+DISPLAY:<temp>
+DISPLAY:<temp>
+...
+
+Goal:
+[ ] System runs without exceptions
+[ ] Temperatures printed
+
+--------------------------------------------------
+FINAL CHECKLIST
+--------------------------------------------------
+
+[ ] mvn test passes ALL tests
+[ ] Manual run works
+[ ] Code pushed to GitHub
+[ ] Create tag: handin1
+[ ] Push tag
+[ ] Verify GitHub Actions passed
+[ ] Submit repo link on Canvas
