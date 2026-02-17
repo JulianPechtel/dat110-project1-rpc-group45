@@ -48,11 +48,11 @@ Implement TODOs in:
     - send()
 
 Tests:
-[ ] TestMessage
-[ ] TestMessaging
+[x] TestMessage
+[x] TestMessaging
 
 Goal:
-[ ] mvn test passes messaging tests
+[x] mvn test passes messaging tests
 
 --------------------------------------------------
 STEP 2 – RPC Layer (Task 2)

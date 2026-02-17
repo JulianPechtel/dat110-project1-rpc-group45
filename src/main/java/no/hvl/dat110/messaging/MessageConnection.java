@@ -57,8 +57,7 @@ public class MessageConnection {
 	
 		try {
 			inStream.readFully(data);
-			byte[] payload = MessageUtils.decapsulate(data);
-			message = new Message(payload);
+			message = MessageUtils.decapsulate(data);
 		} catch (IOException ex) {
 			System.out.println("MessageConnection.receive: " + ex.getMessage());
 			ex.printStackTrace();

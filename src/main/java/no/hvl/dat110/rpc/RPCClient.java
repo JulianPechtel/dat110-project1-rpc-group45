@@ -17,26 +17,23 @@ public class RPCClient {
 	}
 	
 	public void connect() {
-		
-		// TODO - START
-		// connect using the RPC client
-		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
-		
-		// TODO - END
+
+		connection = msgclient.connect();
+	
+		if (connection == null) {
+			throw new RuntimeException("RPCClient.connect: could not establish messaging connection");
+		}
 	}
 	
+	
 	public void disconnect() {
-		
-		// TODO - START
-		// disconnect by closing the underlying messaging connection
-		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
-		
-		// TODO - END
+
+		if (connection != null) {
+			connection.close();
+			connection = null;
+		}
 	}
+	
 
 	/*
 	 Make a remote call om the method on the RPC server by sending an RPC request message and receive an RPC reply message
@@ -45,26 +42,25 @@ public class RPCClient {
 	 param is the marshalled parameter of the method to be called
 	 */
 
-	public byte[] call(byte rpcid, byte[] param) {
-		
-		byte[] returnval = null;
-		
-		// TODO - START
+	 public byte[] call(byte rpcid, byte[] param) {
 
-		/*
-
-		The rpcid and param must be encapsulated according to the RPC message format
-
-		The return value from the RPC call must be decapsulated according to the RPC message format
-
-		*/
-				
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
-		
-		// TODO - END
-		return returnval;
-		
+		if (connection == null) {
+			throw new IllegalStateException("RPCClient.call: not connected");
+		}
+	
+		// build request payload: [rpcid][param...]
+		byte[] request = RPCUtils.encapsulate(rpcid, param);
+	
+		// send request
+		connection.send(new Message(request));
+	
+		// receive reply
+		Message replymsg = connection.receive();
+		byte[] reply = replymsg.getData();
+	
+		// extract return value bytes from reply
+		return RPCUtils.decapsulate(rpcid, reply);
 	}
+	
 
 }
