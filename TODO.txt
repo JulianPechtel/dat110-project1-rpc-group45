@@ -60,7 +60,7 @@ Package: no.hvl.dat110.rpc
 
 Implement TODOs in:
 
-[ ] RPCUtils.java
+[ ] RPCUtils.java - Holder på med denne, er ikke helt feridg
     - marshal/unmarshal int
     - marshal/unmarshal String
     - RPC encapsulation helpers
