@@ -60,24 +60,24 @@ Package: no.hvl.dat110.rpc
 
 Implement TODOs in:
 
-[ ] RPCUtils.java - Holder på med denne, er ikke helt feridg
+[x] RPCUtils.java - Holder på med denne, er ikke helt feridg
     - marshal/unmarshal int
     - marshal/unmarshal String
     - RPC encapsulation helpers
 
-[ ] RPCClient.java
+[x] RPCClient.java
     - call()
 
-[ ] RPCServer.java
+[x] RPCServer.java
     - register()
     - receiveAndDispatch()
 
 Tests:
-[ ] TestRPCUtils
-[ ] TestRPC
+[x] TestRPCUtils
+[x] TestRPC
 
 Goal:
-[ ] mvn test passes RPC tests
+[x] mvn test passes RPC tests
 
 --------------------------------------------------
 STEP 3 – IoT Application (Task 3)
