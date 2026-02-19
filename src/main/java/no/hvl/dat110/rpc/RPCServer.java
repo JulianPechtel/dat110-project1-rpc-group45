@@ -24,7 +24,7 @@ public class RPCServer {
 	}
 	
 	public void run() {
-		
+    
 		// the stop RPC method is built into the server
 		RPCRemoteImpl rpcstop = new RPCServerStopImpl(RPCCommon.RPIDSTOP,this);
 		
@@ -37,55 +37,46 @@ public class RPCServer {
 		boolean stop = false;
 		
 		while (!stop) {
-	    
+		
 		   byte rpcid = 0;
 		   Message requestmsg, replymsg;
 		   
-		   // TODO - START
-		   // - receive a Message containing an RPC request
-		   // - extract the identifier for the RPC method to be invoked from the RPC request
-		   // - extract the method's parameter by decapsulating using the RPCUtils
-		   // - lookup the method to be invoked
-		   // - invoke the method and pass the param
-		   // - encapsulate return value 
-		   // - send back the message containing the RPC reply
-			
-		 	// receive a Message containing an RPC request
+			// receive a Message containing an RPC request
 			requestmsg = connection.receive();
 			byte[] rpcmsg = requestmsg.getData();
-
-			// extract the identifier for the RPC method to be invoked from the RPC request
+	
+			// extract the identifier for the RPC method
 			rpcid = rpcmsg[0];
-
-			// extract the method's parameter (payload) by decapsulating using the RPCUtils
+	
+			// extract the method's parameter
 			byte[] param = RPCUtils.decapsulate(rpcmsg);
-
-			// lookup the method to be invoked
+	
+			// lookup the method
 			RPCRemoteImpl impl = services.get(rpcid);
-
-			// invoke the method and pass the param (if not found, return empty payload)
+	
+			// invoke method
 			byte[] returnval = new byte[0];
 			if (impl != null) {
-			    returnval = impl.invoke(param);
+				returnval = impl.invoke(param);
 			}
-
-			// encapsulate return value into an RPC reply message
+	
+			// encapsulate return value
 			byte[] replyrpcmsg = RPCUtils.encapsulate(rpcid, returnval);
 			replymsg = new Message(replyrpcmsg);
-
-			// send back the message containing the RPC reply
+	
+			// send reply
 			connection.send(replymsg);
-
-		   
-		   // TODO - END
-
-			// stop the server if it was stop methods that was called
-		   if (rpcid == RPCCommon.RPIDSTOP) {
-			   stop = true;
-		   }
+	
+			// stop the server if stop RPC was called
+			if (rpcid == RPCCommon.RPIDSTOP) {
+				stop = true;
+			}
 		}
 	
+		// ✅ THIS IS THE IMPORTANT LINE
+		stop();
 	}
+	
 	
 	// used by server side method implementations to register themselves in the RPC server
 	public void register(byte rpcid, RPCRemoteImpl impl) {
